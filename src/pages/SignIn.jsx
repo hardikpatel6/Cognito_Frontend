@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../src/contexts/AuthContext";
 import { signin } from "../api/auth";
-// import { signInWithRedirect } from "aws-amplify/auth";
 
 export default function Signin() {
   const location = useLocation();
@@ -39,14 +38,8 @@ export default function Signin() {
     }
   };
 
-  // const handleGoogleLogin = (e) => {
-  //   signInWithRedirect({ provider: "Google" });
-  // }
   return (
     <>
-      {/* <button type="button" onClick={handleGoogleLogin}>
-          Sign in with Google
-        </button> */}
       <form onSubmit={handleSubmit}>
         <h2>Signin</h2>
         
