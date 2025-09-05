@@ -5,7 +5,7 @@ import Confirm from "./pages/Confirm";
 import ForgotPassword from "./pages/ForgotPassword";
 import ConfirmPassword from "./pages/ConfirmPassword";
 import Dashboard from "./pages/DashBoard";
-import Callback from "./pages/Callback";
+// import Callback from "./pages/Callback";
 function App() {
   return (
     <BrowserRouter>
@@ -17,7 +17,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/confirm-password" element={<ConfirmPassword />} />
         <Route path="*" element={<Navigate to="/signin" />} />
-        <Route path="/callback" element={<Callback />} />
+        {/* <Route path="/callback" element={<Callback />} /> */}
       </Routes>
     </BrowserRouter>
   );
