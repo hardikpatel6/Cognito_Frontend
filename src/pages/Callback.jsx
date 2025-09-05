@@ -15,5 +15,5 @@ export default function Callback() {
     checkSession();
   }, []);
 
-  return <h3>Redirecting...</h3>;
+  return <h3>Redirecting Pls wait...</h3>;
 }

@@ -40,12 +40,10 @@ export default function Signin() {
   };
 
   const handleGoogleLogin = (e) => {
-    e.preventDefault();
     signInWithRedirect({ provider: "Google" });
   }
   return (
     <>
-
       <button type="button" onClick={handleGoogleLogin}>
           Sign in with Google
         </button>
