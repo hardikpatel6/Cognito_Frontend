@@ -1,10 +1,14 @@
 
 import React from 'react'
-
+import { signInWithRedirect, signOut } from "aws-amplify/auth";
 const DashBoard = () => {
-  const handleLogOut = () => {
-    // Logic for logging out the user
-    console.log("User logged out");
+  const handleLogOut = async () => {
+    try {
+          await signOut();
+          alert("Signed out successfully!");
+        } catch (error) {
+          console.error("Logout error:", error);
+        }
   }
   return (
     <div>
