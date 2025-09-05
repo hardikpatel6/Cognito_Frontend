@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../src/contexts/AuthContext";
 import { signin } from "../api/auth";
+import { signInWithRedirect,fetchAuthSession } from "aws-amplify/auth";
 
 export default function Signin() {
   const location = useLocation();
@@ -37,12 +38,28 @@ export default function Signin() {
       alert(err.response?.data?.error || err.message || "Signin failed");
     }
   };
-
+  const handleGoogleLogin = async () => {
+    try {
+      const session = await fetchAuthSession();
+      if (!session.tokens) {
+        await signInWithRedirect({ provider: "Google" });
+      } else {
+        console.log("Already signed in:", session);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
   return (
     <>
+      <button onClick={handleGoogleLogin}>
+        Sign in with Google
+      </button>
+      <br></br>
+      <br></br>
       <form onSubmit={handleSubmit}>
         <h2>Signin</h2>
-        
+
         <input
           type="email"
           placeholder="Email"
