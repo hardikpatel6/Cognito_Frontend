@@ -1,9 +1,14 @@
 import React from 'react';
+import { signOut } from 'aws-amplify/auth';
 
 function SignOut() {
-  const handleSignOut = () => {
-    // Call API for sign-out
-    console.log('Sign Out');
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      alert("Signed out successfully!");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (

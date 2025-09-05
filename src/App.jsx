@@ -15,6 +15,7 @@ function App() {
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/confirm-password" element={<ConfirmPassword />} />
+        <Route path="/signout" element={<SignOut />} />
         <Route path="*" element={<Navigate to="/signin" />} />
       </Routes>
     </BrowserRouter>
