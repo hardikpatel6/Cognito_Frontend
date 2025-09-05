@@ -5,6 +5,7 @@ import Confirm from "./pages/Confirm";
 import ForgotPassword from "./pages/ForgotPassword";
 import ConfirmPassword from "./pages/ConfirmPassword";
 import Dashboard from "./pages/DashBoard";
+import SignOut from "./pages/SignOut";
 function App() {
   return (
     <BrowserRouter>
