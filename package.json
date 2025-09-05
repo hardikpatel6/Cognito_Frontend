@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/backend-cli": "^1.8.0",
+    "aws-amplify": "^6.15.5",
     "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

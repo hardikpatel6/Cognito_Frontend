@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../src/contexts/AuthContext";
-import axios from "axios";
 import { signin } from "../api/auth";
-
-const API = "https://3kukxjdebg.execute-api.ap-south-1.amazonaws.com/Prod/auth";
+import { signInWithRedirect } from "aws-amplify/auth";
 
 export default function Signin() {
   const location = useLocation();
@@ -41,34 +39,44 @@ export default function Signin() {
     }
   };
 
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    signInWithRedirect({ provider: "Google" });
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Signin</h2>
+    <>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={(e) => setForm({ ...form, email: e.target.value })}
-        readOnly={fromReset} // ✅ editable normally, locked if from reset
-        required
-      />
+      <button type="button" onClick={handleGoogleLogin}>
+          Sign in with Google
+        </button>
+      <form onSubmit={handleSubmit}>
+        <h2>Signin</h2>
+        
+        <input
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          readOnly={fromReset} // ✅ editable normally, locked if from reset
+          required
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-        required
-      />
+        <input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          required
+        />
 
-      <button type="submit">Signin</button>
+        <button type="submit">Signin</button>
 
-      {!fromReset && ( // ✅ only show forgot-password link if it's normal signin
-        <div>
-          <Link to="/forgot-password">Forgot Password?</Link>
-        </div>
-      )}
-    </form>
+        {!fromReset && ( // ✅ only show forgot-password link if it's normal signin
+          <div>
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+        )}
+      </form>
+    </>
   );
 }
