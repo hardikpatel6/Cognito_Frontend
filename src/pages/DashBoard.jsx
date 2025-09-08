@@ -1,44 +1,43 @@
-
-import React from 'react'
-import { signOut } from "aws-amplify/auth";
 import { useNavigate } from "react-router-dom";
-import { useEffect,useState } from "react";
-import { fetchAuthSession } from "aws-amplify/auth";
+import React, { useEffect, useState } from "react";
+import { fetchAuthSession, signOut } from "aws-amplify/auth";
+
 const DashBoard = () => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    async function checkSession() {
       try {
-        const session = await fetchAuthSession();
-        if (session.tokens) {
-          setUser(session.tokens.idToken?.payload);
-          console.log("✅ Logged in user:", session);
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (storedUser) {
+          setUser(storedUser);
+          console.log("✅ Logged in user:",storedUser);
+        } else {
+          navigate("/signin");
         }
       } catch (err) {
         console.error("❌ Session fetch failed:", err);
       }
-    }
-    checkSession();
-  }, []);
-  const navigate = useNavigate();
+  }, [navigate]);
+
   const handleLogOut = async () => {
     try {
-          await signOut({global:true});
-          alert("Signed out successfully!");
-          navigate("/signin");
-        } catch (error) {
-          console.error("Logout error:", error);
-        }
-  }
-  
-  if(!user) return <div>Loading...</div>
+      localStorage.removeItem("user");
+      alert("Signed out successfully!");
+      navigate("/signin");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
-    return (
-      <div>
-        <h2>Hello World and Hello Hardik</h2>
-        <button onClick={handleLogOut}>SignOut</button>
-      </div>
-    )
-}
+  if (!user) return <div>Loading...</div>;
+  // Hardik#2511
+  return (
+    <div>
+      <h2>Welcome Hardik Webistes</h2>
+      <button onClick={handleLogOut}>Sign Out</button>
+    </div>
+  );
+};
 
-export default DashBoard
+export default DashBoard;

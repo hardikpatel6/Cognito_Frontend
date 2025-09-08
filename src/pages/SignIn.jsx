@@ -31,6 +31,7 @@ export default function Signin() {
       console.log("Signin response:", data);
 
       login(data); // save user & token to context/localStorage
+      localStorage.setItem("user", JSON.stringify(data)); // persist user data
       alert("✅ Login successful");
       navigate("/dashboard"); // redirect after login
     } catch (err) {

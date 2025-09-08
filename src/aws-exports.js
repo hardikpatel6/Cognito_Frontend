@@ -15,8 +15,8 @@ const awsmobile = {
         oauth: {
           domain: "sam-app-dev.auth.ap-south-1.amazoncognito.com", // from HostedUIDomain Output
           scopes: ["openid", "email", "profile"],
-          redirectSignIn: ["http://localhost:4000"],  // same as FrontendUrl param
-          redirectSignOut: ["http://localhost:4000"], // same as FrontendUrl param
+          redirectSignIn: ["https://main.d2va1lk6qgvlk8.amplifyapp.com/dashboard"],  // same as FrontendUrl param
+          redirectSignOut: ["https://main.d2va1lk6qgvlk8.amplifyapp.com/signin"], // same as FrontendUrl param
           responseType: "code"
         }
       }
