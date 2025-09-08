@@ -64,11 +64,13 @@ export default function Signin() {
         if (session.tokens) {
           const user = await getCurrentUser();
           console.log("Google user:", user);
+          const attributes = user?.signInUserSession?.idToken?.payload || {};
 
           // Normalize for Dashboard (store email, username, etc.)
           const googleUserData = {
-            email: user.signInDetails?.loginId,
+            email: attributes.email || user.signInDetails?.loginId,
             username: user.username,
+            name : attributes.name || null,
             provider: "Google",
           };
 
