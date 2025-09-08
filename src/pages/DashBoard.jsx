@@ -46,7 +46,6 @@ const DashBoard = () => {
               : "User"}
         </h2>
         {user.provider && <p>Signed in with: {user.provider}</p>}
-        <button onClick={handleLogOut}>Sign Out</button>
       </div>
       <button onClick={handleLogOut}>Sign Out</button>
     </div>

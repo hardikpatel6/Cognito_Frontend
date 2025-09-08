@@ -30,8 +30,14 @@ export default function Signin() {
       const { data } = await signin(form);
       console.log("Signin response:", data);
 
-      login(data); // save user & token to context/localStorage
-      localStorage.setItem("user", JSON.stringify(data)); // persist user data
+      const basicUserData = {
+        email: data.email || form.email,
+        username: data.username || form.email.split("@")[0],
+        provider: "Basic",
+        token: data.token ||null
+      }
+      login(basicUserData); // save user & token to context/localStorage
+      localStorage.setItem("user", JSON.stringify(basicUserData)); // persist user data
       alert("✅ Login successful");
       navigate("/dashboard"); // redirect after login
     } catch (err) {
