@@ -1,26 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { fetchAuthSession, signOut } from "aws-amplify/auth";
+import { signOut } from "aws-amplify/auth";
 
 const DashBoard = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-      try {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-          setUser(storedUser);
-          console.log("✅ Logged in user:",storedUser);
-        } 
-      } catch (err) {
-        console.error("❌ Session fetch failed:", err);
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (storedUser) {
+        setUser(storedUser);
+        console.log("✅ Logged in user:", storedUser);
       }
+    } catch (err) {
+      console.error("❌ Session fetch failed:", err);
+    }
   }, [navigate]);
 
   const handleLogOut = async () => {
     try {
       localStorage.removeItem("user");
+      await signOut();
+      setUser(null);
+      console.log("✅ User signed out");
       alert("Signed out successfully!");
       navigate("/signin");
     } catch (error) {
@@ -33,6 +36,18 @@ const DashBoard = () => {
   return (
     <div>
       <h2>Welcome Hardik Webistes</h2>
+      <div>
+        <h2>
+          Welcome{" "}
+          {user.email
+            ? user.email
+            : user.username
+              ? user.username
+              : "User"}
+        </h2>
+        {user.provider && <p>Signed in with: {user.provider}</p>}
+        <button onClick={handleLogOut}>Sign Out</button>
+      </div>
       <button onClick={handleLogOut}>Sign Out</button>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../src/contexts/AuthContext";
 import { signin } from "../api/auth";
-import { signInWithRedirect,fetchAuthSession } from "aws-amplify/auth";
+import { signInWithRedirect,fetchAuthSession,getCurrentUser } from "aws-amplify/auth";
 
 export default function Signin() {
   const location = useLocation();
@@ -51,6 +51,32 @@ export default function Signin() {
       console.error("Login error:", error);
     }
   };
+  useEffect(() => {
+    const checkGoogleRedirect = async () => {
+      try {
+        const session = await fetchAuthSession();
+        if (session.tokens) {
+          const user = await getCurrentUser();
+          console.log("Google user:", user);
+
+          // Normalize for Dashboard (store email, username, etc.)
+          const googleUserData = {
+            email: user.signInDetails?.loginId,
+            username: user.username,
+            provider: "Google",
+          };
+
+          login(googleUserData);
+          localStorage.setItem("user", JSON.stringify(googleUserData));
+          navigate("/dashboard");
+        }
+      } catch (err) {
+        console.error("Google redirect check failed:", err);
+      }
+    };
+
+    checkGoogleRedirect();
+  }, [login, navigate]);
   return (
     <>
       <button onClick={handleGoogleLogin}>
