@@ -12,9 +12,7 @@ const DashBoard = () => {
         if (storedUser) {
           setUser(storedUser);
           console.log("✅ Logged in user:",storedUser);
-        } else {
-          navigate("/signin");
-        }
+        } 
       } catch (err) {
         console.error("❌ Session fetch failed:", err);
       }
