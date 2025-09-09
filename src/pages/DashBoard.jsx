@@ -8,7 +8,8 @@ const DashBoard = () => {
 
   useEffect(() => {
     try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const storedUser = JSON.parse(localStorage.getItem("authUser"));
+      console.log("Fetched user from localStorage:", storedUser);
       if (storedUser) {
         setUser(storedUser);
         console.log("✅ Logged in user:", storedUser);
@@ -16,7 +17,7 @@ const DashBoard = () => {
     } catch (err) {
       console.error("❌ Session fetch failed:", err);
     }
-  }, [navigate]);
+  }, []);
 
   const handleLogOut = async () => {
     try {

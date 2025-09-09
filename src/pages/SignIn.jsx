@@ -45,7 +45,8 @@ export default function Signin() {
       alert(err.response?.data?.error || err.message || "Signin failed");
     }
   };
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
     try {
       const session = await fetchAuthSession();
       if (!session.tokens) {
@@ -69,7 +70,7 @@ export default function Signin() {
           // Normalize for Dashboard (store email, username, etc.)
           const googleUserData = {
             email: attributes.email || user.signInDetails?.loginId,
-            username: user.username,
+            username: attributes.email ? attributes.email.split("@")[0] : user.username || "Unknown User",
             name : attributes.name || null,
             provider: "Google",
           };
@@ -84,7 +85,7 @@ export default function Signin() {
     };
 
     checkGoogleRedirect();
-  }, [login, navigate]);
+  }, [login,navigate]);
   return (
     <>
       <button onClick={handleGoogleLogin}>
