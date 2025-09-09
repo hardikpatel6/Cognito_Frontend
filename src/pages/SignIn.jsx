@@ -45,8 +45,7 @@ export default function Signin() {
       alert(err.response?.data?.error || err.message || "Signin failed");
     }
   };
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
+  const handleGoogleLogin = async () => {
     try {
       const session = await fetchAuthSession();
       if (!session.tokens) {
